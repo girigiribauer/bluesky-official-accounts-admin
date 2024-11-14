@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     return new Response(`${account} に重複はありませんでした`);
   }
 
-  checkDuplicatedAccounts(result.map((a) => a.id));
+  await checkDuplicatedAccounts(result.map((a) => a.id));
   return new Response(
     `${account} の検索結果（Notion側にチェックが付きます）\n\n${JSON.stringify(
       result,

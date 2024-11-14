@@ -38,6 +38,7 @@ export const checkDuplicatedAccounts = async (pageIDs: string[]) => {
         },
       },
     });
+    await new Promise((r) => setTimeout(r, 500));
   }
 
   return;
