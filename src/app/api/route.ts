@@ -15,8 +15,10 @@ export async function GET(request: NextRequest) {
 
   const result = await fetchDuplicateAccounts(account);
 
-  if (result.length == 1) {
-    return new Response(`${account} に重複はありませんでした`);
+  if (result.length <= 1) {
+    return new Response(
+      `${account} に重複はありませんでした\n\nそのまま画面を閉じてください`
+    );
   }
 
   await checkDuplicatedAccounts(result.map((a) => a.id));
@@ -25,6 +27,6 @@ export async function GET(request: NextRequest) {
       result,
       null,
       "  "
-    )}`
+    )}\n\nそのまま画面を閉じてください`
   );
 }
