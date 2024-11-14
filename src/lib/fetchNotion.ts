@@ -35,7 +35,7 @@ export const checkDuplicatedAccounts = async (pageIDs: string[]) => {
     await notion.pages.update({
       page_id: pageID,
       properties: {
-        duplicated: {
+        重複: {
           checkbox: true,
         },
       },
