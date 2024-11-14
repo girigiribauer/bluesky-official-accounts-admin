@@ -2,7 +2,7 @@ import { type NextRequest } from "next/server";
 import {
   checkDuplicatedAccounts,
   fetchDuplicateAccounts,
-} from "../../../src/lib/fetchNotion";
+} from "../../../../src/lib/fetchNotion";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     return new Response("検索対象のアカウントが見つかりませんでした");
   }
 
-  const databaseID = process.env.ACCOUNTLIST_DATABASE || "DEFAULT_DATABASE_ID";
+  const databaseID = process.env.DUPLICATE_DATABASE || "DEFAULT_DATABASE_ID";
   const result = await fetchDuplicateAccounts(account, databaseID);
 
   if (result.length <= 1) {

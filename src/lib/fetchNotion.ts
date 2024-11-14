@@ -6,12 +6,14 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-export const fetchDuplicateAccounts = async (account: string) => {
-  const databaseId = process.env.DUPLICATE_DATABASE || "DEFAULT_DATABASE_ID";
+export const fetchDuplicateAccounts = async (
+  databaseID: string,
+  account: string
+) => {
   const notionResponse = await notion.databases.query({
-    database_id: databaseId,
+    database_id: databaseID,
     filter: {
-      property: "account",
+      property: "Bluesky",
       rich_text: {
         equals: account,
       },
@@ -22,7 +24,7 @@ export const fetchDuplicateAccounts = async (account: string) => {
   return notionResponse.results.map((result: any) => {
     const id = result?.id ?? "";
     const createdTime = result?.created_time ?? "";
-    const account = result?.properties["account"]?.formula?.string ?? "";
+    const account = result?.properties["Bluesky"]?.formula?.string ?? "";
 
     return { id, createdTime, account };
   });
