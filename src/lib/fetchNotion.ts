@@ -7,8 +7,8 @@ const notion = new Client({
 });
 
 export const fetchDuplicateAccounts = async (
-  databaseID: string,
-  account: string
+  account: string,
+  databaseID: string
 ) => {
   const notionResponse = await notion.databases.query({
     database_id: databaseID,
