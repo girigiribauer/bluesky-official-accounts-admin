@@ -13,7 +13,7 @@ export const fetchDuplicateAccounts = async (
   const notionResponse = await notion.databases.query({
     database_id: databaseID,
     filter: {
-      property: "X/Twitter",
+      property: "Twitter/X",
       rich_text: {
         equals: account,
       },
@@ -24,7 +24,7 @@ export const fetchDuplicateAccounts = async (
   return notionResponse.results.map((result: any) => {
     const id = result?.id ?? "";
     const createdTime = result?.created_time ?? "";
-    const account = result?.properties["X/Twitter"]?.formula?.string ?? "";
+    const account = result?.properties["Twitter/X"]?.formula?.string ?? "";
 
     return { id, createdTime, account };
   });
