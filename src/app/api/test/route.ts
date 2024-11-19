@@ -1,7 +1,7 @@
 import { type NextRequest } from "next/server";
 import {
   checkDuplicatedAccounts,
-  fetchDuplicateAccounts,
+  fetchDuplicateAccountsForTest,
 } from "../../../../src/lib/fetchNotion";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   }
 
   const databaseID = process.env.DUPLICATE_DATABASE || "DEFAULT_DATABASE_ID";
-  const result = await fetchDuplicateAccounts(account, databaseID);
+  const result = await fetchDuplicateAccountsForTest(account, databaseID);
 
   if (result.length <= 1) {
     return new Response(

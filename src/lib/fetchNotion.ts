@@ -6,6 +6,30 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
+export const fetchDuplicateAccountsForTest = async (
+  account: string,
+  databaseID: string
+) => {
+  const notionResponse = await notion.databases.query({
+    database_id: databaseID,
+    filter: {
+      property: "X/Twitter",
+      rich_text: {
+        equals: account,
+      },
+    },
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return notionResponse.results.map((result: any) => {
+    const id = result?.id ?? "";
+    const createdTime = result?.created_time ?? "";
+    const account = result?.properties["X/Twitter"]?.formula?.string ?? "";
+
+    return { id, createdTime, account };
+  });
+};
+
 export const fetchDuplicateAccounts = async (
   account: string,
   databaseID: string
